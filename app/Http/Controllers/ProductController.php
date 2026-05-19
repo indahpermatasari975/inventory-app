@@ -53,42 +53,42 @@ class ProductController extends Controller
         return redirect('/products')->with('success', 'Data berhasil ditambahkan');
     }
 
- public function edit($id)
-{
-    $product = Product::findOrFail($id);
-    $categories = Category::all();
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
 
-    return view('products.edit', compact('product', 'categories'));
-}
+        return view('products.edit', compact('product', 'categories'));
+    }
 
-public function update(Request $request, $id)
-{
-    $product = Product::findOrFail($id);
+    public function update(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
 
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'category_id' => 'required|exists:categories,id',
-        'price' => 'required|numeric|min:0',
-        'stock' => 'required|integer|min:0',
-        'description' => 'nullable|string',
-        'status' => 'required|in:Tersedia,Habis',
-    ]);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'description' => 'nullable|string',
+            'status' => 'required|in:Tersedia,Habis',
+        ]);
 
-    $product->update($validated);
+        $product->update($validated);
 
-    return redirect('/products')
+        return redirect('/products')
             ->with('success', 'Data berhasil diupdate');
-}
+    }
 
     public function delete($id)
-{
-    $product = Product::findOrFail($id);
+    {
+        $product = Product::findOrFail($id);
 
-    $product->delete();
+        $product->delete();
 
-    return redirect('/products')
+        return redirect('/products')
             ->with('success', 'Data berhasil dihapus');
-}
+    }
 
     public function destroy($id)
     {
@@ -97,6 +97,6 @@ public function update(Request $request, $id)
         $product->delete();
 
         return redirect('/products')
-                ->with('success', 'Data berhasil dihapus');
+            ->with('success', 'Data berhasil dihapus');
     }
 }
