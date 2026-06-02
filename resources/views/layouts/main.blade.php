@@ -21,17 +21,43 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}"
-                            href="{{ route('products.index') }}">Product</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}"
-                            href="{{ route('categories.index') }}">Category</a>
-                    </li>
+                    @auth
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}"
+                                href="{{ route('products.index') }}">Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}"
+                                href="{{ route('categories.index') }}">Category</a>
+                        </li>
+                        <li class="nav-item ms-3 ps-3 border-start">
+                            <span class="navbar-text text-light me-2">
+                                Halo, <strong>{{ Auth::user()->name }}</strong>
+                            </span>
+                            <span class="badge {{ Auth::user()->role === 'admin' ? 'bg-danger' : 'bg-secondary' }}">
+                                {{ Auth::user()->role }}
+                            </span>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="nav-link btn btn-link text-light text-decoration-none">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    @endauth
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}" href="{{ route('login') }}">Login</a>
+                        </li>
+                    @endguest
                 </ul>
             </div>
         </div>
