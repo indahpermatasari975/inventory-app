@@ -14,18 +14,23 @@
     <!-- BAGIAN ATAS: NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">InventarisKu</a>
-            <div class="collapse navbar-collapse">
+            <a class="navbar-brand" href="{{ route('home') }}">Inventory App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav ms-auto">
-                    <!-- Link navigasi ke halaman Produk -->
                     <li class="nav-item">
-                        <a class="nav-link"
-                            href="{{ route('products.index') }}">Produk</a>
+                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
                     </li>
-                    <!-- Link navigasi ke halaman Kategori -->
                     <li class="nav-item">
-                        <a class="nav-link"
-                            href="{{ route('categories.index') }}">Kategori</a>
+                        <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}"
+                            href="{{ route('products.index') }}">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}"
+                            href="{{ route('categories.index') }}">Category</a>
                     </li>
                 </ul>
             </div>
